@@ -1,267 +1,1041 @@
-<!DOCTYPE html>
-<html>
+<script src='scripts/jszip.js'></script>
+<script src='scripts/filesaver.js'></script>
 
-<head>
-<link rel="icon" type="image/x-icon" href="images.jpeg">
-<title>I.K.U-inator homepage</title>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" id="black" class="black"/> <img src="/imgs/freedomforgelogo.png" id="loadimg" class="loadimg"> <style> @keyframes fadeout{ 0%{ opacity:1; pointer-events: none;} 100%{ opacity:0; display:none; }} .black{ position:absolute; left:0px; opacity:1; display:block; top:0px; width:100%; z-index:999999999999999999999999999999999999999999999; height:100%; } .loadimg{color:white; position:absolute; opacity:1; display:block; z-index:9999999999999999999999999999999999999999999999; top:50%; left:50%; transform:translate(-50%, -50%); } </style> <script> function fade(){ document.getElementById("loadimg").style.animation="linear 1.5s 1 running fadeout"; document.getElementById("loadimg").addEventListener("animationend", () => { document.getElementById("black").style.animation="linear 1.5s 1 running fadeout"; document.getElementById("black").addEventListener("animationend", () => { document.getElementById("black").remove(); }); document.getElementById("loadimg").remove(); }); } setTimeout(fade,1200); </script> 
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
+  input[type=range]{
+    -webkit-appearance: none;
+  }
 
-body{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:space-between;
-height:100vh;
-width:100vw;
-margin:0;
-font-family:inter, roboto, open sans;
-background:linear-gradient(135deg,#1f1f1f,#3b3b3b);
-}
-
-/* Header */
-
-.header{
-display:flex;
-flex-direction:column;
-align-items:center;
-margin-top:20px;
-}
-
-/* Title */
-
-h1{
-color:#fff;
-text-shadow:0px 4px 12px rgba(0,0,0,0.6);
-font-size:60px;
-margin:0;
-}
-
-/* Description */
-
-p.desc{
-color:#fff;
-text-shadow:0px 4px 12px rgba(0,0,0,0.6);
-font-size:22px;
-text-align:center;
-margin-top:10px;
-max-width:900px;
-}
-
-/* Container */
-
-.container{
-width:90%;
-max-width:1200px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-padding:40px 50px;
-border-radius:20px;
-text-align:center;
-box-shadow:0px 10px 30px rgba(0,0,0,0.4);
-}
-
-/* Input */
-
-input{
-padding:14px;
-font-size:20px;
-width:90%;
-max-width:900px;
-border-radius:10px;
-border:none;
-outline:none;
-margin-bottom:25px;
-background:#f2f2f2;
-}
-
-/* Buttons */
-
-button{
-padding:10px 25px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#4CAF50;
-color:white;
-cursor:pointer;
-transition:all 0.2s ease;
-}
-
-button:hover{
-background:#45a049;
-transform:scale(1.05);
-}
-
-/* Quick Links */
-
-.quick-links{
-text-align:center;
-margin-top:20px;
-}
-
-.quick-links p{
-color:#fff;
-margin-bottom:10px;
-}
-
-.quick-links .bar{
-display:flex;
-gap:12px;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-/* Footer */
-
-.footer{
-color:#fff;
-font-size:14px;
-margin-bottom:15px;
-}
-
-/* ✅ Settings Button */
-
-.settings-btn{
-position:fixed;
-top:12px;
-right:50px;
-width:140px;              /* wider */
-min-height:50px;          /* allow height to grow */
-padding:8px;              /* space inside */
-border:none;
-background:rgba(74, 74, 74, 0.15);
-color:#4CAF50;
-font-size:12px;
-cursor:pointer;
-
-display:flex;
-align-items:center;       /* vertical center */
-justify-content:center;   /* horizontal center */
-text-align:center;        /* center text */
-
-white-space:normal;       /* allow wrapping */
-word-wrap:break-word;     /* break long text */
-
-border-radius:10px;
-backdrop-filter:blur(6px);
-transition:0.2s;
-z-index:1000;
-}
-
-.settings-btn:hover{
-background:rgba(85, 83, 83, 0.25);
-transform:scale(1.05);
-}
-
+  input[type=checkbox]{
+    background-color: white;
+    border-radius:50%;
+    border: 3px solid white;
+  }
+  
+  input[type="color"] {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border-radius: 0px;
+    padding: 0;
+    border: 0px solid #59edd7;
+    overflow: hidden;
+  }
+        
+  input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 0px;
+    overflow: hidden;
+  }
+        
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 0px;
+    overflow: hidden;
+  }
+        
+  input[type="color"]::-webkit-color-swatch {
+    border: none;
+  }
+    
+  body{
+    background-color:black;
+  }
+  html, body {
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden;
+  }
+  ::placeholder{
+    color:inherit;
+  }
 </style>
-</head>
-
 <body>
-
-<!-- ✅ SETTINGS BUTTON -->
-<button class="settings-btn" onclick="window.location.href='entermonk.html'">
-social media unblocker
-19053=pass
-</button>
-
-<div class="header">
-<h1>The I.K.U-inator</h1>
-
-<p class="desc">
-Decent unblocker runs most games well. Some sites may not work.
-</p>
-</div>
-
-<div class="container">
-<input id="gameURL" placeholder="Enter URL (https://example.com)">
-<br>
-<button onclick="openURL()">Start</button>
-</div>
-
-<div class="quick-links">
-<p>Quick Links</p>
-<div class="bar">
-<button onclick="openGame('https://shellshock.io')">Shellshockers</button>
-<button onclick="openGame('https://krunker.io')">Krunker</button>
-<button onclick="openGame('https://gn-math.dev')">GN Math</button>
-</div>
-</div>
-
-<div class="footer">
-There will always be a way around securely
-</div>
-
+  
+</body>
 <script>
+  var link=document.querySelector("link[rel*='icon']") || document.createElement('link');
+  link.type='image/x-icon';
+  link.rel='shortcut icon';
+  link.href="/imgs/freedomforgeicon.png";
+  document.getElementsByTagName('head')[0].appendChild(link);
+  document.title="Freedom Forge";
 
-// Press Enter to launch
-document.addEventListener('keydown', (event) => {
-if (event.key === 'Enter') openURL();
-});
+  
+  window.onerror = function(msg, url, linenumber) {
+    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    return true;
+  }
+  
+  var fontsize=2560/screen.width*7;
 
-// Convert to Webfuse proxy
-function toWebfuse(url){
-return "https://demo.webfuse.com/iframe-test/?url=" + encodeURIComponent(url);
-}
+  var oncont=document.createElement("div");
+  oncont.style.background="transparent";
+  oncont.style.position="absolute";
+  oncont.style.left="0px";
+  oncont.style.display="flex";
+  oncont.style.flexDirection="row";
+  oncont.style.top="0%";
+  oncont.style.width="100%";
+  oncont.style.height="10%";
+  oncont.style.alignItems="center";
+  oncont.style.justifyContent="center";
+  oncont.style.overflowY="hidden";
+  oncont.style.overflowX="scroll";
+  document.body.appendChild(oncont);
 
-// Open typed URL
-function openURL(){
-let url = document.getElementById("gameURL").value.trim();
+  var sbbg=document.createElement("input");
+  sbbg.type="checkbox";
+  sbbg.checked="true";
+  sbbg.id="sbbg";
+  sbbg.addEventListener("change",() => { 
+    if (document.getElementById("sbbacform").style.display!="none"){
+      document.getElementById("sbbacform").style.display="none";
+    }
+    else{
+      document.getElementById("sbbacform").style.display="flex";
+    }
+  });
+  sbbg.style.height="65%";
+  sbbg.style.display="flex";
+  sbbg.style.textAlign="center";
+  oncont.appendChild(sbbg);
+  
+  var sbbgl=document.createElement("div");
+  sbbgl.style.fontSize=fontsize+"px";
+  sbbgl.style.display="flex";
+  sbbgl.style.marginRight="15px";
+  sbbgl.style.height="100%";
+  sbbgl.style.alignItems="center";
+  sbbgl.style.justifyContent="center";
+  sbbgl.innerText=" - search bar background";
+  sbbgl.style.color="white";
+  oncont.appendChild(sbbgl);
 
-if(url === ""){
-alert("Please enter a URL");
-return;
-}
+  var sbbbe=document.createElement("input");
+  sbbbe.type="checkbox";
+  sbbbe.checked="true";
+  sbbbe.id="sbbbe";
+  sbbbe.addEventListener("change",() => { 
+    if (document.getElementById("sbbsform").style.display!="none"){
+      document.getElementById("sbbsform").style.display="none";
+      document.getElementById("sbbcform").style.display="none";
+    }
+    else{
+      document.getElementById("sbbsform").style.display="flex";
+      document.getElementById("sbbcform").style.display="flex";
+    }
+  });
+  sbbbe.style.height="65%";
+  sbbbe.style.display="flex";
+  sbbbe.style.textAlign="center";
+  oncont.appendChild(sbbbe);
+  
+  var sbbbel=document.createElement("div");
+  sbbbel.style.fontSize=fontsize+"px";
+  sbbbel.style.display="flex";
+  sbbbel.style.marginRight="15px";
+  sbbbel.style.height="100%";
+  sbbbel.style.alignItems="center";
+  sbbbel.style.justifyContent="center";
+  sbbbel.innerText=" - search bar border";
+  sbbbel.style.color="white";
+  oncont.appendChild(sbbbel);
 
-// Ensure https
-if(!url.startsWith("http")){
-url = "https://" + url;
-}
+  var searchplace=document.createElement("input");
+  searchplace.type="checkbox";
+  searchplace.checked="true";
+  searchplace.id="searchplace";
+  searchplace.addEventListener("change",() => { 
+    if (document.getElementById("sbpt").style.display!="none"){
+      document.getElementById("sbpt").style.display="none";
+    }
+    else{
+      document.getElementById("sbpt").style.display="flex";
+    }
+  });
+  searchplace.style.height="65%";
+  searchplace.style.display="flex";
+  searchplace.style.textAlign="center";
+  oncont.appendChild(searchplace);
+  
+  var searchplacel=document.createElement("div");
+  searchplacel.style.fontSize=fontsize+"px";
+  searchplacel.style.display="flex";
+  searchplacel.style.marginRight="15px";
+  searchplacel.style.height="100%";
+  searchplacel.style.alignItems="center";
+  searchplacel.style.justifyContent="center";
+  searchplacel.innerText=" - search bar placeholder";
+  searchplacel.style.color="white";
+  oncont.appendChild(searchplacel);
+  
+  var title=document.createElement("input");
+  title.type="checkbox";
+  title.style.display="flex";
+  title.checked="true";
+  title.addEventListener("change",() => { 
+    if (document.getElementById("titlecolorform").style.display!="none"){
+      document.getElementById("titlecolorform").style.display="none";
+      document.getElementById("titletext").style.display="none";
+    }
+    else{
+      document.getElementById("titlecolorform").style.display="flex";
+      document.getElementById("titletext").style.display="flex";
+    }
+  });
+  title.id="title";
+  title.style.height="65%";
+  title.style.textAlign="center";
+  oncont.appendChild(title);
+  
+  var titlel=document.createElement("div");
+  titlel.style.fontSize=fontsize+"px";
+  titlel.style.display="flex";
+  titlel.style.marginRight="15px";
+  titlel.style.height="100%";
+  titlel.style.alignItems="center";
+  titlel.style.justifyContent="center";
+  titlel.innerText=" - title";
+  titlel.style.color="white";
+  oncont.appendChild(titlel);
 
-launch(url);
-}
+  var imgorcolor=document.createElement("input");
+  imgorcolor.type="checkbox";
+  imgorcolor.checked="true";
+  imgorcolor.id="imgorcolor";
+  imgorcolor.addEventListener("change",() => { 
+    if (document.getElementById("bgimg").style.display!="none"){
+      document.getElementById("bgimg").style.display="none";
+      document.getElementById("bgcolorform").style.display="flex";
+    }
+    else{
+      document.getElementById("bgimg").style.display="flex";
+      document.getElementById("bgcolorform").style.display="none";
+    }
+  });
+  imgorcolor.style.height="65%";
+  imgorcolor.style.display="flex";
+  imgorcolor.style.textAlign="center";
+  oncont.appendChild(imgorcolor);
+  
+  var imgorcolorl=document.createElement("div");
+  imgorcolorl.style.fontSize=fontsize+"px";
+  imgorcolorl.style.display="flex";
+  imgorcolorl.style.marginRight="15px";
+  imgorcolorl.style.height="100%";
+  imgorcolorl.style.alignItems="center";
+  imgorcolorl.style.justifyContent="center";
+  imgorcolorl.innerText=" - bacground image";
+  imgorcolorl.style.color="white";
+  oncont.appendChild(imgorcolorl);
+  
+  
+  var editcont=document.createElement("div");
+  editcont.style.background="transparent";
+  editcont.style.position="absolute";
+  editcont.style.left="0px";
+  editcont.style.top="10%";
+  editcont.style.width="100%";
+  editcont.style.height="80%";
+  editcont.style.display="flex";
+  editcont.style.flexDirection="column";
+  editcont.style.rowGap="10px";
+  editcont.style.overflowY="scroll";
+  editcont.style.overflowX="hidden";
+  document.body.appendChild(editcont);
+  
+  
+  var titlecolorform=document.createElement("div");
+  titlecolorform.style.height="6%";
+  titlecolorform.style.marginTop="10px";
+  titlecolorform.style.display="flex";
+  titlecolorform.id="titlecolorform";
+  titlecolorform.style.textAlign="center";
+  titlecolorform.style.verticalAlign="middle";
+  titlecolorform.style.alignItems="center";
+  titlecolorform.style.position="relative";
+  titlecolorform.style.justifyContent="center";
+  titlecolorform.style.textAlign="center";
+  titlecolorform.style.width="100%";
+  editcont.appendChild(titlecolorform);
 
-// Quick link launcher
-function openGame(url){
-launch(url);
-}
+  var titlecolorl=document.createElement("div");
+  titlecolorl.style.fontSize=fontsize+"px";
+  titlecolorl.style.display="flex";
+  titlecolorl.style.height="100%";
+  titlecolorl.style.alignItems="center";
+  titlecolorl.style.justifyContent="center";
+  titlecolorl.style.borderRadius="25px 0px 0px 25px";
+  titlecolorl.style.border="2px solid white";
+  titlecolorl.innerText="title color: ";
+  titlecolorl.style.color="white";
+  titlecolorform.appendChild(titlecolorl);
 
-// Open new window with iframe
-function launch(url){
+  var titlecolord=document.createElement("div");
+  titlecolord.style.background="transparent";
+  titlecolord.style.color="white";
+  titlecolord.style.border="2px solid white";
+  titlecolord.style.width="8%";
+  titlecolord.style.borderRadius="0px 25px 25px 0px";
+  titlecolord.style.display="flex";
+  titlecolord.style.overflow="hidden";
+  titlecolord.style.alignItems="center";
+  titlecolord.style.justifyContent="center";
+  titlecolord.value="#435ccc";
+  titlecolord.style.textAlign="center";
+  titlecolord.style.height="100%";
+  titlecolorform.appendChild(titlecolord);
+  
+  var titlecolor=document.createElement("input");
+  titlecolor.type="color";
+  titlecolor.id="titlecolor";
+  titlecolor.value="#435ccc";
+  titlecolor.style.width="100%";
+  titlecolor.style.height="100%";
+  titlecolor.style.display="flex";
+  titlecolor.value="#435ccc";
+  titlecolor.style.textAlign="center";
+  titlecolor.style.height="100%";
+  titlecolord.appendChild(titlecolor);
 
-let proxiedURL = toWebfuse(url);
+  var titletext=document.createElement("input");
+  titletext.type="text";
+  titletext.id="titletext";
+  titletext.placeholder="Title text";
+  titletext.style.position="relative";
+  titletext.style.left='50%';
+  titletext.style.fontSize=fontsize+"px";
+  titletext.style.borderRadius="25px";
+  titletext.style.border="2px solid white";
+  titletext.style.color="white";
+  titletext.style.width="45%";
+  titletext.style.textAlign="center";
+  titletext.style.height="6%";
+  titletext.style.background="transparent";
+  titletext.style.transform='translateX(-50%)';
+  editcont.appendChild(titletext);
 
-let newWindow = window.open('about:blank');
 
-newWindow.document.write(`
-<!DOCTYPE html>
-<html>
-<head>
-<title>Classroom</title>
-<style>
-body, html {
-margin:0;
-padding:0;
-width:100%;
-height:100%;
-overflow:hidden;
-}
-iframe {
-width:100%;
-height:100%;
-border:none;
-}
-</style>
-</head>
-<body>
-<iframe src="${proxiedURL}"></iframe>
-</body>
-</html>
-`);
+  var hr=document.createElement("hr");
+  hr.border="4px solid white";
+  hr.style.opacity="0";
+  editcont.appendChild(hr);
+  
 
-}
+  var sbpt=document.createElement("input");
+  sbpt.type="text";
+  sbpt.placeholder="Search bar placeholder text";
+  sbpt.style.position="relative";
+  sbpt.style.left='50%';
+  sbpt.style.borderRadius="25px";
+  sbpt.id="sbpt";
+  sbpt.style.fontSize=fontsize+"px";
+  sbpt.style.border="2px solid white";
+  sbpt.style.color="white";
+  sbpt.style.width="45%";
+  sbpt.style.textAlign="center";
+  sbpt.style.height="6%";
+  sbpt.style.background="transparent";
+  sbpt.style.transform='translateX(-50%)';
+  editcont.appendChild(sbpt);
+  
+  var sbtcform=document.createElement("div");
+  sbtcform.style.height="6%";
+  sbtcform.style.display="flex";
+  sbtcform.style.textAlign="center";
+  sbtcform.style.verticalAlign="middle";
+  sbtcform.style.alignItems="center";
+  sbtcform.style.position="relative";
+  sbtcform.style.justifyContent="center";
+  sbtcform.style.textAlign="center";
+  sbtcform.style.width="100%";
+  editcont.appendChild(sbtcform);
 
+  var sbtcl=document.createElement("div");
+  sbtcl.style.fontSize=fontsize+"px";
+  sbtcl.style.display="flex";
+  sbtcl.style.height="100%";
+  sbtcl.style.alignItems="center";
+  sbtcl.style.justifyContent="center";
+  sbtcl.style.borderRadius="25px 0px 0px 25px";
+  sbtcl.style.border="2px solid white";
+  sbtcl.innerText="search bar text color: ";
+  sbtcl.style.color="white";
+  sbtcform.appendChild(sbtcl);
+
+  var sbbtcd=document.createElement("div");
+  sbbtcd.style.background="transparent";
+  sbbtcd.style.color="white";
+  sbbtcd.style.border="2px solid white";
+  sbbtcd.style.width="8%";
+  sbbtcd.style.borderRadius="0px 25px 25px 0px";
+  sbbtcd.style.display="flex";
+  sbbtcd.style.overflow="hidden";
+  sbbtcd.style.alignItems="center";
+  sbbtcd.style.justifyContent="center";
+  sbbtcd.value="#435ccc";
+  sbbtcd.style.textAlign="center";
+  sbbtcd.style.height="100%";
+  sbtcform.appendChild(sbbtcd);
+  
+  var sbtc=document.createElement("input");
+  sbtc.type="color";
+  sbtc.id="sbtc";
+  sbtc.value="#435ccc";
+  sbtc.style.width="100%";
+  sbtc.style.height="100%";
+  sbtc.style.display="flex";
+  sbtc.value="#435ccc";
+  sbtc.style.textAlign="center";
+  sbtc.style.height="100%";
+  sbbtcd.appendChild(sbtc);
+
+  var sbbcform=document.createElement("div");
+  sbbcform.style.height="6%";
+  sbbcform.style.display="flex";
+  sbbcform.id="sbbcform";
+  sbbcform.style.textAlign="center";
+  sbbcform.style.verticalAlign="middle";
+  sbbcform.style.alignItems="center";
+  sbbcform.style.position="relative";
+  sbbcform.style.justifyContent="center";
+  sbbcform.style.textAlign="center";
+  sbbcform.style.width="100%";
+  editcont.appendChild(sbbcform);
+
+  var sbbcl=document.createElement("div");
+  sbbcl.style.fontSize=fontsize+"px";
+  sbbcl.style.display="flex";
+  sbbcl.style.height="100%";
+  sbbcl.style.alignItems="center";
+  sbbcl.style.justifyContent="center";
+  sbbcl.style.borderRadius="25px 0px 0px 25px";
+  sbbcl.style.border="2px solid white";
+  sbbcl.innerText="search bar border color: ";
+  sbbcl.style.color="white";
+  sbbcform.appendChild(sbbcl);
+
+  var sbbcd=document.createElement("div");
+  sbbcd.style.background="transparent";
+  sbbcd.style.color="white";
+  sbbcd.style.border="2px solid white";
+  sbbcd.style.width="8%";
+  sbbcd.style.borderRadius="0px 25px 25px 0px";
+  sbbcd.style.display="flex";
+  sbbcd.style.overflow="hidden";
+  sbbcd.style.alignItems="center";
+  sbbcd.style.justifyContent="center";
+  sbbcd.value="#435ccc";
+  sbbcd.style.textAlign="center";
+  sbbcd.style.height="100%";
+  sbbcform.appendChild(sbbcd);
+  
+  var sbbc=document.createElement("input");
+  sbbc.type="color";
+  sbbc.id="sbbc";
+  sbbc.value="#435ccc";
+  sbbc.style.width="100%";
+  sbbc.style.height="100%";
+  sbbc.style.display="flex";
+  sbbc.value="#435ccc";
+  sbbc.style.textAlign="center";
+  sbbc.style.height="100%";
+  sbbcd.appendChild(sbbc);
+
+  var sbbsform=document.createElement("div");
+  sbbsform.style.height="6%";
+  sbbsform.id="sbbsform";
+  sbbsform.style.display="flex";
+  sbbsform.style.textAlign="center";
+  sbbsform.style.verticalAlign="middle";
+  sbbsform.style.alignItems="center";
+  sbbsform.style.position="relative";
+  sbbsform.style.justifyContent="center";
+  sbbsform.style.textAlign="center";
+  sbbsform.style.width="100%";
+  editcont.appendChild(sbbsform);
+
+  var sbbsl=document.createElement("div");
+  sbbsl.style.fontSize=fontsize+"px";
+  sbbsl.style.display="flex";
+  sbbsl.style.height="100%";
+  sbbsl.style.alignItems="center";
+  sbbsl.style.justifyContent="center";
+  sbbsl.style.borderRadius="25px 0px 0px 25px";
+  sbbsl.style.border="2px solid white";
+  sbbsl.innerText="search bar border size: ";
+  sbbsl.style.color="white";
+  sbbsform.appendChild(sbbsl);
+
+  var sbbsd=document.createElement("div");
+  sbbsd.style.background="transparent";
+  sbbsd.style.color="white";
+  sbbsd.style.border="2px solid white";
+  sbbsd.style.width="20%";
+  sbbsd.style.borderRadius="0px 25px 25px 0px";
+  sbbsd.style.display="flex";
+  sbbsd.style.alignItems="center";
+  sbbsd.style.justifyContent="center";
+  sbbsd.value="#435ccc";
+  sbbsd.style.textAlign="center";
+  sbbsd.style.height="100%";
+  sbbsform.appendChild(sbbsd);
+    
+  var sbbs=document.createElement("input");
+  sbbs.type="range";
+  sbbs.min="0";
+  sbbs.max="20";
+  sbbs.style.outline="none";
+  sbbs.style.background="white";
+  sbbs.style.color="white";
+  sbbs.id="sbbs";
+  sbbs.style.border="2px solid white";
+  sbbs.style.width="200%";
+  sbbs.style.height="200%";
+  sbbs.style.display="flex";
+  sbbs.value="#435ccc";
+  sbbs.style.textAlign="center";
+  sbbs.style.height="15%";
+  sbbsd.appendChild(sbbs);
+
+  var sbbacform=document.createElement("div");
+  sbbacform.style.height="6%";
+  sbbacform.style.display="flex";
+  sbbacform.id="sbbacform";
+  sbbacform.style.textAlign="center";
+  sbbacform.style.verticalAlign="middle";
+  sbbacform.style.alignItems="center";
+  sbbacform.style.position="relative";
+  sbbacform.style.justifyContent="center";
+  sbbacform.style.textAlign="center";
+  sbbacform.style.width="100%";
+  editcont.appendChild(sbbacform);
+
+  var sbbacl=document.createElement("div");
+  sbbacl.style.fontSize=fontsize+"px";
+  sbbacl.style.display="flex";
+  sbbacl.style.height="100%";
+  sbbacl.value="#435ccc";
+  sbbacl.style.alignItems="center";
+  sbbacl.style.justifyContent="center";
+  sbbacl.style.borderRadius="25px 0px 0px 25px";
+  sbbacl.style.border="2px solid white";
+  sbbacl.innerText="search bar background color: ";
+  sbbacl.style.color="white";
+  sbbacform.appendChild(sbbacl);
+
+  var sbbacd=document.createElement("div");
+  sbbacd.style.background="transparent";
+  sbbacd.style.color="white";
+  sbbacd.style.border="2px solid white";
+  sbbacd.style.width="8%";
+  sbbacd.style.borderRadius="0px 25px 25px 0px";
+  sbbacd.style.display="flex";
+  sbbacd.style.overflow="hidden";
+  sbbacd.style.alignItems="center";
+  sbbacd.style.justifyContent="center";
+  sbbacd.value="#435ccc";
+  sbbacd.style.textAlign="center";
+  sbbacd.style.height="100%";
+  sbbacform.appendChild(sbbacd);
+  
+  var sbbac=document.createElement("input");
+  sbbac.type="color";
+  sbbac.id="sbbac";
+  sbbac.style.width="100%";
+  sbbac.style.height="100%";
+  sbbac.style.display="flex";
+  sbbac.value="#435ccc";
+  sbbac.style.textAlign="center";
+  sbbac.style.height="100%";
+  sbbacd.appendChild(sbbac);
+
+
+  var hr2=document.createElement("hr");
+  hr2.border="4px solid white";
+  hr2.style.opacity="0";
+  editcont.appendChild(hr2);
+  
+
+  var tabtitle=document.createElement("input");
+  tabtitle.type="text";
+  tabtitle.id="tabtitle";
+  tabtitle.style.background="transparent";
+  tabtitle.placeholder="Tab title";
+  tabtitle.style.position="relative";
+  tabtitle.style.fontSize=fontsize+"px";
+  tabtitle.style.left='50%';
+  tabtitle.style.borderRadius="25px";
+  tabtitle.style.border="2px solid white";
+  tabtitle.style.color="white";
+  tabtitle.style.width="45%";
+  tabtitle.style.textAlign="center";
+  tabtitle.style.height="6%";
+  tabtitle.style.transform='translateX(-50%)';
+  editcont.appendChild(tabtitle);
+
+
+  var hr3=document.createElement("hr");
+  hr3.border="4px solid white";
+  hr3.style.opacity="0";
+  editcont.appendChild(hr3);
+
+  
+  var tabinput=document.createElement("input");
+  tabinput.style.display="none";
+  tabinput.type="file";
+  tabinput.accept="image/*";
+  tabinput.onchange = function() {
+    let input = this.files[0];
+    let text;
+    if (input) {
+      text = tabinput.value.replace("C:\\fakepath\\", "");
+    }
+    tabimg.innerHTML = text;
+  };
+  tabinput.id="tabinput";
+  editcont.appendChild(tabinput);
+  
+  var tabimg=document.createElement("button");
+  tabimg.id="tabimg";
+  tabimg.style.background="transparent";
+  tabimg.style.cursor="pointer";
+  tabimg.style.position="relative";
+  tabimg.style.fontSize=fontsize+"px";
+  tabimg.style.left='50%';
+  tabimg.style.borderRadius="25px";
+  tabimg.style.border="2px solid white";
+  tabimg.style.color="white";
+  tabimg.style.width="25%";
+  tabimg.style.overflow="hidden";
+  tabimg.style.textAlign="center";
+  tabimg.style.height="6%";
+  tabimg.innerText="Upload a tab icon";
+  tabimg.style.transform='translateX(-50%)';
+  editcont.appendChild(tabimg);
+  document.getElementById('tabimg').addEventListener('click', () => { 
+    document.getElementById('tabinput').click();
+  });
+
+  var bginput=document.createElement("input");
+  bginput.style.display="none";
+  bginput.type="file";
+  bginput.onchange = function() {
+    let input = this.files[0];
+    let text;
+    if (input) {
+      text = bginput.value.replace("C:\\fakepath\\", "");
+    }
+    bgimg.innerHTML = text;
+  };
+  bginput.id="bginput";
+  bginput.accept="image/*";
+  editcont.appendChild(bginput);
+  
+  var bgimg=document.createElement("button");
+  bgimg.id="bgimg";
+  bgimg.style.background="transparent";
+  bgimg.style.cursor="pointer";
+  bgimg.style.overflow="hidden";
+  bgimg.style.position="relative";
+  bgimg.style.fontSize=fontsize+"px";
+  bgimg.style.left='50%';
+  bgimg.style.borderRadius="25px";
+  bgimg.style.border="2px solid white";
+  bgimg.style.color="white";
+  bgimg.style.width="25%";
+  bgimg.style.textAlign="center";
+  bgimg.style.height="6%";
+  bgimg.innerText="Upload a background image";
+  bgimg.style.transform='translateX(-50%)';
+  editcont.appendChild(bgimg);
+  document.getElementById('bgimg').addEventListener('click', () => { 
+    document.getElementById('bginput').click();
+  });
+
+  var bgcolorform=document.createElement("div");
+  bgcolorform.style.height="6%";
+  bgcolorform.style.marginTop="10px";
+  bgcolorform.style.width="100%";
+  bgcolorform.style.display="none";
+  bgcolorform.id="bgcolorform";
+  bgcolorform.style.textAlign="center";
+  bgcolorform.style.verticalAlign="middle";
+  bgcolorform.style.alignItems="center";
+  bgcolorform.style.position="relative";
+  bgcolorform.style.justifyContent="center";
+  bgcolorform.style.textAlign="center";
+  editcont.appendChild(bgcolorform);
+
+  var bgcolorl=document.createElement("div");
+  bgcolorl.style.fontSize=fontsize+"px";
+  bgcolorl.style.display="flex";
+  bgcolorl.style.height="100%";
+  bgcolorl.style.alignItems="center";
+  bgcolorl.style.justifyContent="center";
+  bgcolorl.style.borderRadius="25px 0px 0px 25px";
+  bgcolorl.style.border="2px solid white";
+  bgcolorl.innerText="background color: ";
+  bgcolorl.style.color="white";
+  bgcolorform.appendChild(bgcolorl);
+
+  var bgcolord=document.createElement("div");
+  bgcolord.style.background="transparent";
+  bgcolord.style.color="white";
+  bgcolord.style.border="2px solid white";
+  bgcolord.style.width="8%";
+  bgcolord.style.borderRadius="0px 25px 25px 0px";
+  bgcolord.style.display="flex";
+  bgcolord.style.overflow="hidden";
+  bgcolord.style.alignItems="center";
+  bgcolord.style.justifyContent="center";
+  bgcolord.value="#435ccc";
+  bgcolord.style.textAlign="center";
+  bgcolord.style.height="100%";
+  bgcolorform.appendChild(bgcolord);
+  
+  var bgcolor=document.createElement("input");
+  bgcolor.type="color";
+  bgcolor.id="bgcolor";
+  bgcolor.value="#435ccc";
+  bgcolor.style.width="100%";
+  bgcolor.style.height="100%";
+  bgcolor.style.display="flex";
+  bgcolor.value="#435ccc";
+  bgcolor.style.textAlign="center";
+  bgcolor.style.height="100%";
+  bgcolord.appendChild(bgcolor);
+
+  var cont=document.createElement("div");
+  cont.style.position="absolute";
+  cont.style.left='0px';
+  cont.style.backgroundColor="green";
+  cont.style.bottom="0px";
+  cont.style.border="none";
+  cont.style.width="100%";
+  cont.style.textAlign="center";
+  cont.style.height="6%";
+  cont.style.background="transparent";
+  document.body.appendChild(cont);
+
+  
+  var preview=document.createElement("button");
+  preview.style.display="inline"; 
+  preview.style.background="transparent";
+  preview.style.height="100%";
+  preview.style.width="15%";
+  preview.addEventListener("click", previewcode);
+  preview.style.fontSize=(fontsize-2)+"px";
+  preview.style.borderRadius="25px"; 
+  preview.style.bottom="0px";
+  preview.innerText="preview";
+  preview.style.border="2px solid white"; 
+  preview.style.color="white"; 
+  preview.style.textAlign="center";
+  preview.style.padding="0px";
+  cont.appendChild(preview);
+
+  var done=document.createElement("button");
+  done.style.display="inline"; 
+  done.style.background="transparent";
+  done.style.height="100%";
+  done.style.width="15%";
+  done.addEventListener("click", waitforcode);
+  done.style.fontSize=(fontsize-2)+"px";
+  done.style.borderRadius="25px"; 
+  done.style.bottom="0px";
+  done.style.border="2px solid white"; 
+  done.style.color="white"; 
+  done.innerText="done!";
+  done.style.textAlign="center";
+  done.style.padding="0px";
+  cont.appendChild(done);
+  
+  var codelist=[];
+  var namelist=[];
+  function getHtml(file){
+    return new Promise((resolve) => {
+      fetch(file)
+        .then((response) => {
+          return response.text();
+        })
+        .then((html) => {
+          resolve(html);
+        });
+    });
+  }
+var filelist=["/files/Procfile","/files/README.md","/files/app.json","/files/index.js","/files/index.mjs","/files/main.sh","/files/package-lock.json","/files/package.json","/files/public/sw.js","/files/public/uv/uv.bundle.js","/files/public/uv/uv.config.js","/files/public/uv/uv.handler.js","/files/public/uv/uv.sw.js","/files/replit.nix"];
+
+  function hs(hideorshow){
+    if (hideorshow=="hide"){
+      const elems=document.getElementsByTagName("*");
+      for (const elem of elems) {
+        if (elem.tagName!="BODY" && elem.tagName!="HEAD" && elem.tagName!="HTML"){
+          elem.style.pointerEvents="none";
+          elem.style.opacity="0";
+        }
+      }
+    }
+    if (hideorshow=="show"){
+      const elems=document.getElementsByTagName("*");
+      for (const elem of elems) {
+        if (elem.tagName!="BODY" && elem.tagName!="HEAD" && elem.tagName!="HTML"){
+          elem.style.pointerEvents="auto";
+          elem.style.opacity="1";
+        }
+      }
+    }
+  }
+
+  function imgs1(){
+    return new Promise((resolve) => {
+      var reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        () => {
+          resolve(reader.result);
+        },
+        false,
+      );
+      if (document.getElementById("bginput").files[0]!=undefined){
+        reader.readAsDataURL(document.getElementById("bginput").files[0]);
+      } else {
+        resolve("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
+      }
+    });
+  }
+
+  function hexToRgb(hex) {
+    hex=hex.replace("#","");
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return r + "," + g + "," + b;
+  }
+
+
+  
+  function imgs2(){
+    return new Promise((resolve) => {
+      var reader1 = new FileReader();
+      reader1.addEventListener(
+        "load",
+        () => {
+          resolve(reader1.result);
+        },
+        false,
+      );
+      reader1.readAsDataURL(document.getElementById("tabinput").files[0]);
+    });
+  }
+  
+  async function previewcode(){
+    hs("hide");
+    var html=await getHtml("/files/public/index.html");
+    html=html.toString();
+
+    if (document.getElementById("title").checked!=true){
+      html=html.replaceAll("---documenttitle---"," ");
+    }
+
+    if (document.getElementById("sbbbe").checked!=true){
+      html=html.replaceAll("---bordersize---","0");
+    }
+
+    if (document.getElementById("searchplace").checked!=true){
+      html=html.replaceAll("---placeholder---"," ");
+    }
+
+    if (document.getElementById("sbbg").checked!=true){
+      html=html.replaceAll("---sbbac---"," ");
+    }
+    
+    var color=hexToRgb(document.getElementById("titlecolor").value.toString());
+    html=html.replaceAll("---titlecolor---","rgb("+color+")");
+
+    if (document.getElementById("titletext").value.toString()==""){
+      html=html.replaceAll("---documenttitle---","Nothing here yet! remember to fill in everything!");
+    }
+    html=html.replaceAll("---documenttitle---",document.getElementById("titletext").value.toString());
+
+    if (document.getElementById("tabtitle").value.toString()==""){
+      html=html.replaceAll("---tabtitle---","Nothing here yet! remember to fill in everything!");
+    }
+    html=html.replaceAll("---tabtitle---",document.getElementById("tabtitle").value.toString());
+
+    if (document.getElementById("sbbs").value.toString()==""){
+      html=html.replaceAll("---bordersize---","5px");
+    }
+    html=html.replaceAll("---bordersize---",document.getElementById("sbbs").value.toString());
+    html=html.replaceAll("---bordercolor---",document.getElementById("sbbc").value.toString());
+
+    if (document.getElementById("sbpt").value.toString()==""){
+      html=html.replaceAll("---placeholder---","Nothing here yet! remember to fill in everything!");
+    }
+    html=html.replaceAll("---placeholder---",document.getElementById("sbpt").value.toString());
+    
+    html=html.replaceAll("---sbtc---",document.getElementById("sbtc").value.toString());
+    html=html.replaceAll("---sbbac---",document.getElementById("sbbac").value.toString());
+    
+    if (document.getElementById("bgimg").style.display!="none"){
+      var img1=await imgs1();
+      html=html.replaceAll("---bg---","url('"+img1+"');");
+    }
+    else{
+      html=html.replaceAll("---bg---",document.getElementById("bgcolor").value);
+    }
+    if (document.getElementById("tabimg").innerText!="Upload a tab icon"){
+      var img2=await imgs2();
+      html=html.replaceAll("---icon---",img2);
+    }
+
+    function waitingidkidkidk(){
+      var frame=document.createElement("iframe");
+      frame.src='data:text/html;charset=utf-8,' + encodeURIComponent(html);
+      frame.style.position="absolute";
+      frame.style.overflow="hidden";
+      frame.style.left="0px";
+      frame.style.opacity="1";
+      frame.style.top="0px";
+      frame.style.border="none";
+      frame.style.width="100%";
+      frame.style.height="100%";
+      frame.scrolling="no";
+      document.body.appendChild(frame);
+  
+      var x = document.createElement('img');
+      x.style.cursor="pointer";
+      x.style.position = "absolute";
+      x.style.width = "50px";
+      x.style.height = "50px";
+      x.src = "/imgs/x.png";
+      x.style.zIndex = "99999999999999999999";
+      x.style.right = "1%";
+      x.style.top = "1%";
+      x.onclick = function() {
+        frame.remove();
+        hs("show");
+        x.remove();
+      };
+      document.body.appendChild(x);
+    }
+    setTimeout(waitingidkidkidk,200);
+  }
+  
+  async function waitforcode(){
+    hs("hide");
+    var zip = new JSZip();
+    var loadbar=document.createElement("div");
+    loadbar.style.position="absolute";
+    loadbar.style.width="0%";
+    loadbar.style.height="15px";
+    loadbar.style.bottom="53%";
+    loadbar.style.backgroundColor="white";
+    loadbar.style.left="0px";
+    loadbar.style.transition="all .5s linear";
+    document.body.appendChild(loadbar);
+    var loadamount=0;
+
+    var loadfile=document.createElement("div");
+    loadfile.style.position="absolute";
+    loadfile.style.color="white";
+    loadfile.style.textAlign="center";
+    loadfile.style.bottom="45%";
+    loadfile.style.left="0px";
+    loadfile.style.width="100%";
+    loadfile.style.height="15px";
+    loadfile.style.fontSize="15px";
+    document.body.appendChild(loadfile);
+
+    var text=document.createElement("h2");
+    loadfile.appendChild(text);
+
+    var percent=document.createElement("div");
+    percent.style.position="absolute";
+    percent.style.color="white";
+    percent.style.textAlign="center";
+    percent.style.top="15%";
+    percent.style.left="0px";
+    percent.style.width="100%";
+    percent.style.height="15px";
+    percent.style.fontSize="30px";
+    document.body.appendChild(percent);
+
+    var text=document.createElement("h2");
+    loadfile.appendChild(text);
+
+    var ptext=document.createElement("h2");
+    percent.appendChild(ptext);
+    
+    for (var i=0; i<filelist.length; i++){
+      text.innerText=filelist[i];
+      var code=await getHtml(filelist[i]);
+      loadamount=loadamount+100/filelist.length;
+      ptext.innerText=Math.round(loadamount)+"%";
+      loadbar.style.width=loadamount+"%";
+      console.log("code"+filelist[i]+": "+code);
+
+      zip.file("files"+filelist[i].toString(),code.toString());
+    }
+
+    var html=await getHtml("/files/public/index.html");
+    html=html.toString();
+
+    if (document.getElementById("title").checked!=true){
+      html=html.replaceAll("---documenttitle---"," ");
+    }
+
+    if (document.getElementById("sbbbe").checked!=true){
+      html=html.replaceAll("---bordersize---","0");
+    }
+
+    if (document.getElementById("searchplace").checked!=true){
+      html=html.replaceAll("---placeholder---"," ");
+    }
+
+    if (document.getElementById("sbbg").checked!=true){
+      html=html.replaceAll("---sbbac---"," ");
+    }
+    
+    html=html.replaceAll("---titlecolor---",document.getElementById("titlecolor").value.toString());
+    html=html.replaceAll("---documenttitle---",document.getElementById("titletext").value.toString());
+    html=html.replaceAll("---tabtitle---",document.getElementById("tabtitle").value.toString());
+    html=html.replaceAll("---bordersize---",document.getElementById("sbbs").value.toString());
+    html=html.replaceAll("---bordercolor---",document.getElementById("sbbc").value.toString());
+    html=html.replaceAll("---placeholder---",document.getElementById("sbpt").value.toString());
+    html=html.replaceAll("---sbtc---",document.getElementById("sbtc").value.toString());
+    html=html.replaceAll("---sbbac---",document.getElementById("sbbac").value.toString());
+
+    if (document.getElementById("bgimg").style.display!="none"){
+      if (document.getElementById("bginput").value!=""){
+        zip.file("/files/public/img/"+bginput.value.replace("C:\\fakepath\\", ""), bginput.files[0], {binary: true});
+        html=html.replaceAll("---bg---","url('"+"/img/"+bginput.value.replace("C:\\fakepath\\", "")+"');");
+      }
+    }
+    else{
+      html=html.replaceAll("---bg---",document.getElementById("bgcolor").value);
+    }
+    if (document.getElementById("tabinput").value!=""){
+      zip.file("/files/public/img/"+tabinput.value.replace("C:\\fakepath\\", ""), tabinput.files[0], {binary: true});
+      html=html.replaceAll("---icon---","/img/"+tabinput.value.replace("C:\\fakepath\\", ""));
+    }
+    
+    console.log(html);
+
+    zip.file("files/files/public/index.html",html);
+        
+    zip.generateAsync({type:"blob"}).then(function (content) {
+      saveAs(content, "ForgedFreedom.zip");
+    });
+    console.log("done!");
+    setTimeout(() => {
+      window.location.href=window.location.origin+"/done/";
+    },250);
+  }
 </script>
-
-</body>
-</html>
