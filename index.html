@@ -1,134 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Bypass</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .search-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .search-method {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .search-method:last-child {
-            border-bottom: none;
-        }
-        input[type="text"] {
-            width: 70%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #4285f4;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #3367d6;
-        }
-        .search-result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        iframe {
-            width: 100%;
-            height: 500px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-    </style>
+<link rel="icon" type="image/x-icon" href="images.jpeg">
+<title>I.K.U-inator homepage</title>
+
+<style>
+
+body{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:space-between;
+height:100vh;
+width:100vw;
+margin:0;
+font-family:inter, roboto, open sans;
+background:linear-gradient(135deg,#1f1f1f,#3b3b3b);
+}
+
+/* Header */
+
+.header{
+display:flex;
+flex-direction:column;
+align-items:center;
+margin-top:20px;
+}
+
+/* Title */
+
+h1{
+color:#fff;
+text-shadow:0px 4px 12px rgba(0,0,0,0.6);
+font-size:60px;
+margin:0;
+}
+
+/* Description */
+
+p.desc{
+color:#fff;
+text-shadow:0px 4px 12px rgba(0,0,0,0.6);
+font-size:22px;
+text-align:center;
+margin-top:10px;
+max-width:900px;
+}
+
+/* Container */
+
+.container{
+width:90%;
+max-width:1200px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+padding:40px 50px;
+border-radius:20px;
+text-align:center;
+box-shadow:0px 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Input */
+
+input{
+padding:14px;
+font-size:20px;
+width:90%;
+max-width:900px;
+border-radius:10px;
+border:none;
+outline:none;
+margin-bottom:25px;
+background:#f2f2f2;
+}
+
+/* Buttons */
+
+button{
+padding:10px 25px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#4CAF50;
+color:white;
+cursor:pointer;
+transition:all 0.2s ease;
+}
+
+button:hover{
+background:#45a049;
+transform:scale(1.05);
+}
+
+/* Quick Links */
+
+.quick-links{
+text-align:center;
+margin-top:20px;
+}
+
+.quick-links p{
+color:#fff;
+margin-bottom:10px;
+}
+
+.quick-links .bar{
+display:flex;
+gap:12px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+/* Footer */
+
+.footer{
+color:#fff;
+font-size:14px;
+margin-bottom:15px;
+}
+
+/* ✅ Settings Button */
+
+.settings-btn{
+position:fixed;
+top:12px;
+right:50px;
+width:140px;              /* wider */
+min-height:50px;          /* allow height to grow */
+padding:8px;              /* space inside */
+border:none;
+background:rgba(74, 74, 74, 0.15);
+color:#4CAF50;
+font-size:12px;
+cursor:pointer;
+
+display:flex;
+align-items:center;       /* vertical center */
+justify-content:center;   /* horizontal center */
+text-align:center;        /* center text */
+
+white-space:normal;       /* allow wrapping */
+word-wrap:break-word;     /* break long text */
+
+border-radius:10px;
+backdrop-filter:blur(6px);
+transition:0.2s;
+z-index:1000;
+}
+
+.settings-btn:hover{
+background:rgba(85, 83, 83, 0.25);
+transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ✅ SETTINGS BUTTON -->
+<button class="settings-btn" onclick="window.location.href='entermonk.html'">
+social media unblocker
+19053=pass
+</button>
+
+<div class="header">
+<h1>The I.K.U-inator</h1>
+
+<p class="desc">
+Decent unblocker runs most games well. Some sites may not work.
+</p>
+</div>
+
+<div class="container">
+<input id="gameURL" placeholder="Enter URL (https://example.com)">
+<br>
+<button onclick="openURL()">Start</button>
+</div>
+
+<div class="quick-links">
+<p>Quick Links</p>
+<div class="bar">
+<button onclick="openGame('https://shellshock.io')">Shellshockers</button>
+<button onclick="openGame('https://krunker.io')">Krunker</button>
+<button onclick="openGame('https://gn-math.dev')">GN Math</button>
+</div>
+</div>
+
+<div class="footer">
+There will always be a way around securely
+</div>
+
+<script>
+
+// Press Enter to launch
+document.addEventListener('keydown', (event) => {
+if (event.key === 'Enter') openURL();
+});
+
+// Convert to Webfuse proxy
+function toWebfuse(url){
+return "https://demo.webfuse.com/iframe-test/?url=" + encodeURIComponent(url);
+}
+
+// Open typed URL
+function openURL(){
+let url = document.getElementById("gameURL").value.trim();
+
+if(url === ""){
+alert("Please enter a URL");
+return;
+}
+
+// Ensure https
+if(!url.startsWith("http")){
+url = "https://" + url;
+}
+
+launch(url);
+}
+
+// Quick link launcher
+function openGame(url){
+launch(url);
+}
+
+// Open new window with iframe
+function launch(url){
+
+let proxiedURL = toWebfuse(url);
+
+let newWindow = window.open('about:blank');
+
+newWindow.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<title>Classroom</title>
+<style>
+body, html {
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+overflow:hidden;
+}
+iframe {
+width:100%;
+height:100%;
+border:none;
+}
+</style>
 </head>
 <body>
-    <h1>Search Bypass Tool</h1>
-    
-    <div class="search-container">
-        <div class="search-method">
-            <h3>DuckDuckGo Search</h3>
-            <form id="duckduckgo-form" target="search-frame">
-                <input type="text" name="q" placeholder="Enter search terms..." required>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-        
-        <div class="search-method">
-            <h3>Bing Search</h3>
-            <form id="bing-form" target="search-frame">
-                <input type="text" name="q" placeholder="Enter search terms..." required>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-        
-        <div class="search-method">
-            <h3>Wikipedia Search</h3>
-            <form id="wikipedia-form" target="search-frame">
-                <input type="text" name="search" placeholder="Enter search terms..." required>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-        
-        <div class="search-method">
-            <h3>Custom URL</h3>
-            <form id="custom-form" target="search-frame">
-                <input type="text" name="url" placeholder="https://example.com" required>
-                <button type="submit">Go</button>
-            </form>
-        </div>
-    </div>
-    
-    <div class="search-result">
-        <h3>Search Results</h3>
-        <iframe name="search-frame" id="search-frame"></iframe>
-    </div>
-    
-    <script>
-        document.getElementById('duckduckgo-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const query = this.q.value;
-            document.getElementById('search-frame').src = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-        });
-        
-        document.getElementById('bing-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const query = this.q.value;
-            document.getElementById('search-frame').src = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
-        });
-        
-        document.getElementById('wikipedia-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const query = this.search.value;
-            document.getElementById('search-frame').src = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(query)}`;
-        });
-        
-        document.getElementById('custom-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const url = this.url.value;
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                document.getElementById('search-frame').src = `https://${url}`;
-            } else {
-                document.getElementById('search-frame').src = url;
-            }
-        });
-    </script>
+<iframe src="${proxiedURL}"></iframe>
+</body>
+</html>
+`);
+
+}
+
+</script>
+
 </body>
 </html>
